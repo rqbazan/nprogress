@@ -27,7 +27,8 @@
     barSelector: '[role="bar"]',
     spinnerSelector: '[role="spinner"]',
     parent: 'body',
-    template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+    template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>',
+    prepend: false,
   };
 
   /**
@@ -253,7 +254,12 @@
       addClass(parent, 'nprogress-custom-parent');
     }
 
-    parent.appendChild(progress);
+    if (Settings.prepend) {
+      parent.insertBefore(progress, parent.firstChild);
+    } else {
+      parent.appendChild(progress);
+    }
+
     return progress;
   };
 

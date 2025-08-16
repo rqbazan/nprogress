@@ -78,9 +78,27 @@
 
       it('must be attached to specified parent', function() {
         var test = $('<div>', {id: 'test'}).appendTo('body');
+        test.append('<span id="child1">child 1</span>');
+        test.append('<span id="child2">child 2</span>');
+
         NProgress.configure({parent: '#test'});
         NProgress.start();
+
         assert.isTrue($("#nprogress").parent().is(test));
+        assert.isTrue(test.children().last().attr('id') === 'nprogress');
+        assert.isTrue($(NProgress.settings.parent).hasClass("nprogress-custom-parent"));
+      });
+
+      it('must be attached using prepend', function() {
+        var test2 = $('<div>', {id: 'test2'}).appendTo('body');
+        test2.append('<span id="child1">child 1</span>');
+        test2.append('<span id="child2">child 2</span>');
+
+        NProgress.configure({parent: '#test2', prepend: true});
+        NProgress.start();
+
+        assert.isTrue($("#nprogress").parent().is(test2));
+        assert.isTrue(test2.children().first().attr('id') === 'nprogress');
         assert.isTrue($(NProgress.settings.parent).hasClass("nprogress-custom-parent"));
       });
     });
